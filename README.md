@@ -14,7 +14,7 @@ For example, let the undirected graph below represent a small social network bet
 ### Tutorial and example code 
 The Deep Graph Library documentation provides a concise tutorial on GCN training at https://docs.dgl.ai/tutorials/blitz/1_introduction.html. It provides an example implementation of a GCN for classifying the domain of publications in a citation network, as well as a minimal end-to-end GCN training pipeline. This code is also in this repository (**GCN_Cora.py**).
 
-The dataset is automatically downloaded when executing the example code, and the python file can simply be executed with python 3, without any arguments. Setting the **USE_GPU** flag in the 'main' block specifies whether or not the model will be trained on GPU, instead of CPU. 
+The dataset is automatically downloaded when executing the example code, and the python file can simply be executed with python 3, without any arguments. If using the code supplied in this repository (recommended) setting the **USE_GPU** flag in the 'main' block specifies whether or not the model will be trained on GPU, instead of CPU. 
 
 ## Message-Passing Graph Neural Networks (MPGNN)
 Similar to GCNs, MPGNNs are capable of vertex-level and graph-level predictions. They are distinct, however, in that MPGNNs traverse the graph, computing values at vertices in order. There is an assumption of sequential dependence between vertices, contrasting with GCNs which don’t assume any ordering of vertices, and compute predictions on all of them simultaneously from their neighborhoods. For many problems, either architecture could be used, however, we need to draw upon domain knowledge to make these decisions intelligently.
