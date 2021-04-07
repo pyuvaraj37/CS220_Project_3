@@ -25,7 +25,7 @@ For example, let’s assume the directed graph below represents a network of ele
   <img src="https://i.imgur.com/Xh6XLWS.png" />
 </p>
 
-On this graph, we may be interested in predicting the optimal route, with consideration to the charging station and route conditions. Since we must start at station 1, and end at station 4, and only one station may be visited at a time, MPGNNs would appear to be a suitable architecture for this prediction problem, since there is a natural ordering over nodes. In essence, the objective here is to predict the optimal path between stations 1 and 4, which may be formulated as a vertex-level prediction problem (is a given vertex on the optimal path?) 
+On this graph, we may be interested in predicting the optimal route, with consideration to the charging station and route conditions. Since we must start at station 1, end at station 4, and only one station may be visited at a time; MPGNNs would appear to be a suitable architecture for this prediction problem, since there is a natural ordering over nodes. In essence, the objective here is to predict the optimal path between stations 1 and 4, which may be formulated as a vertex-level prediction problem (is a given vertex on the optimal path?) 
 
 <p align="center">
   <img src="https://i.imgur.com/e9TSUwr.png" />
