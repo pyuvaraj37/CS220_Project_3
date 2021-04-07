@@ -12,7 +12,7 @@ For example, let the undirected graph below represent a small social network bet
 </p>
 
 ### Tutorial and example code 
-The Deep Graph Library documentation provides a concise tutorial on GCN training at https://docs.dgl.ai/tutorials/blitz/1_introduction.html. It provides an example implementation of a GCN for classifying the domain of publications in a citation network, as well as a minimal end-to-end GCN training pipeline. This code is also in this repository (GCN_Cora.py).
+The Deep Graph Library documentation provides a concise tutorial on GCN training at https://docs.dgl.ai/tutorials/blitz/1_introduction.html. It provides an example implementation of a GCN for classifying the domain of publications in a citation network, as well as a minimal end-to-end GCN training pipeline. This code is also in this repository (**GCN_Cora.py**).
 
 The dataset is automatically downloaded when executing the example code, and the python file can simply be executed with python 3, without any arguments. 
 
@@ -32,7 +32,7 @@ On this graph, we may be interested in predicting the optimal route, with consid
 </p>
 
 ### Tutorial and example code 
-The Deep Graph Library provides a tutorial and example code for implementing a MPGNN for sentiment analysis, on tree-structured representations of language (https://docs.dgl.ai/en/0.4.x/tutorials/models/2_small_graph/3_tree-lstm.html). The prediction target in this example is the sentiment of subtrees in the graph, or whether they’re contributing a ‘positive’ or ‘negative’ view on the subjects in question. Similarly to the GCN example, the example code (named MPGNN_SA.py in this repository) downloads the dataset at execution, and executes an end-to-end training pipeline. The code may be executed with python 3, without any arguments.
+The Deep Graph Library provides a tutorial and example code for implementing a MPGNN for sentiment analysis, on tree-structured representations of language (https://docs.dgl.ai/en/0.4.x/tutorials/models/2_small_graph/3_tree-lstm.html). The prediction target in this example is the sentiment of subtrees in the graph, or whether they’re contributing a ‘positive’ or ‘negative’ view on the subjects in question. Similarly to the GCN example, the example code (named **MPGNN_SA.py** in this repository) downloads the dataset at execution, and executes an end-to-end training pipeline. The code may be executed with python 3, without any arguments.
 
 Though this architecture is dubbed the Tree LSTM, it is equivalently a particular case of the MPGNN, making predictions on tree-structured data (which are graphs!) The high-level concepts are exemplified in this example: there is a natural ordering of words, from lower-level grammatical objects, to those providing higher-level relationships between them, and information flows sequentially over this natural ordering when computing predictions.
 
