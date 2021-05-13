@@ -19,5 +19,11 @@ def Data():
 	Labels = [Dictionary1[b'labels'], Dictionary2[b'labels'],Dictionary3[b'labels'],
 	Dictionary4[b'labels'],Dictionary5[b'labels']]
 	LabelNames = LabelDictionary[b'label_names']
-	return Batch, Labels, LabelNames
+	Ylabels = []
+	for Batches in Labels:
+		YLabel = np.zeros((10000,10))
+		for j in range(10000):
+			YLabel[j][np.array(Batches)[j]] = 1
+		Ylabels.append(YLabel)
+	return np.array(Batch), np.array(Ylabels), np.array(LabelNames)
 
