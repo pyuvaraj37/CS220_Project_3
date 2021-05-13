@@ -13,8 +13,9 @@ def get_CIFAR_Data(train=True, batch_size=256):
     :return: CIFAR10 loader
     """
     transform = transforms.Compose(
-        [transforms.ToTensor(),
-         transforms.Normalize(mean=(0.1307,), std=(0.3081,))])
+        [transforms.ToTensor()#,
+         #transforms.Normalize(mean=(0.1307,), std=(0.3081,))
+         ])
     data_set = torchvision.datasets.CIFAR10(root='./data', train=train,
                                           download=True, transform=transform)
     loader = torch.utils.data.DataLoader(data_set, batch_size=batch_size,

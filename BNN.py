@@ -23,7 +23,7 @@ def test(model=None):
         lbcnn_depth, state_dict = torch.load(MODEL_PATH)
         model = Lbcnn(depth=lbcnn_depth)
         model.load_state_dict(state_dict)
-    loader = get_mnist_loader(train=False) #Need to change
+    loader = get_CIFAR_Data(train=False) #Need to change
     accuracy = calc_accuracy(model, loader=loader, verbose=True) # Need to change
     print("CIFAR test accuracy: {:.3f}".format(accuracy))
 
@@ -40,12 +40,11 @@ def train(n_epochs=50, lbcnn_depth=2, learning_rate=1e-2, momentum=0.9, weight_d
     if use_cuda:
         model = model.cuda()
     best_accuracy = 0.
-    criterion = nn.CrossEntropyLoss()
+    criterion = nn.L1Loss()
     optimizer = optim.SGD(filter(lambda param: param.requires_grad, model.parameters()), lr=learning_rate,
                           momentum=momentum, weight_decay=weight_decay, nesterov=True)
 
     scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=lr_scheduler_step)
-
     for epoch in range(n_epochs):
         for batch_id, (inputs, labels) in enumerate(
                 tqdm(train_loader, desc="Epoch {}/{}".format(epoch, n_epochs))):

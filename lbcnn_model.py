@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+import numpy as np
 
 #Credit for BNN Model https://github.com/dizcza/lbcnn.pytorch/blob/master/lbcnn_model.py
 class ConvLBP(nn.Conv2d):
@@ -33,7 +34,7 @@ class BlockLBP(nn.Module):
 
 
 class Lbcnn(nn.Module):
-    def __init__(self, nInputPlane=1, numChannels=8, numWeights=16, full=50, depth=2, sparsity=0.5):
+    def __init__(self, nInputPlane=3, numChannels=16, numWeights=16, full=50, depth=2, sparsity=0.5):
         super().__init__()
 
         self.preprocess_block = nn.Sequential(
@@ -41,21 +42,23 @@ class Lbcnn(nn.Module):
             nn.BatchNorm2d(numChannels),
             nn.ReLU(inplace=True)
         )
-
+        
         chain = [BlockLBP(numChannels, numWeights, sparsity) for i in range(depth)]
         self.chained_blocks = nn.Sequential(*chain)
-        self.pool = nn.AvgPool2d(kernel_size=5, stride=5)
+        self.pool = nn.AvgPool2d(kernel_size=8, stride=8)
 
         self.dropout = nn.Dropout(0.5)
-        self.fc1 = nn.Linear(numChannels * 5 * 5, full)
-        self.fc2 = nn.Linear(full, 10)
+		
+        self.fc1 = nn.Linear(16*4*4, full)
+        self.fc2 = nn.Linear(full, 1)
 
     def forward(self, x):
         x = self.preprocess_block(x)
         x = self.chained_blocks(x)
         x = self.pool(x)
-        x = x.view(x.shape[0], -1)
-        x = self.fc1(self.dropout(x))
+        x = x.view(x.shape[0], 16*4*4)
+        x = self.dropout(x)
+        x = self.fc1(x)
         x = F.relu(x)
         x = self.fc2(self.dropout(x))
         return x
