@@ -9,6 +9,7 @@ import torch.optim as optim
 import torch.optim.lr_scheduler
 import torch.utils.data
 from tqdm import tqdm
+from DataLoad import Data
 
 from lbcnn_model import Lbcnn
 from utils import calc_accuracy, get_CIFAR_Data
@@ -17,37 +18,37 @@ MODEL_PATH = os.path.join(os.path.dirname(__file__), 'BNN Model', 'lbcnn_best.pt
 
 #Batches, Labels, LabelNames = Data()
 
-def test(model=None):
+def test( trainX, trainY, testX, testY, model=None):
     if model is None:
         assert os.path.exists(MODEL_PATH), "Train a model first"
         lbcnn_depth, state_dict = torch.load(MODEL_PATH)
         model = Lbcnn(depth=lbcnn_depth)
         model.load_state_dict(state_dict)
-    loader = get_CIFAR_Data(train=False) #Need to change
+    loader = get_CIFAR_Data(trainX = trainX, trainY = trainY, testX = testX, testY = testY, train=False)
     accuracy = calc_accuracy(model, loader=loader, verbose=True) # Need to change
     print("CIFAR test accuracy: {:.3f}".format(accuracy))
 
-def train(n_epochs=50, lbcnn_depth=2, learning_rate=1e-2, momentum=0.9, weight_decay=1e-4, lr_scheduler_step=5):
+def train(trainX, trainY, testX, testY, n_epochs=50, lbcnn_depth=2, learning_rate=1e-2, momentum=0.9, weight_decay=1e-4, lr_scheduler_step=5):
     start = time.time()
     models_dir = os.path.dirname(MODEL_PATH)
     if not os.path.exists(models_dir):
         os.makedirs(models_dir)
 
-    train_loader = get_CIFAR_Data(train=True)
-    test_loader = get_CIFAR_Data(train=False)
+    train_loader = get_CIFAR_Data(trainX = trainX, trainY = trainY, testX = testX, testY = testY, train=True)
+    test_loader = get_CIFAR_Data(trainX = trainX, trainY = trainY, testX = testX, testY = testY, train=False)
     model = Lbcnn(depth=lbcnn_depth)
     use_cuda = torch.cuda.is_available()
     if use_cuda:
         model = model.cuda()
     best_accuracy = 0.
-    criterion = nn.L1Loss()
+    criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(filter(lambda param: param.requires_grad, model.parameters()), lr=learning_rate,
                           momentum=momentum, weight_decay=weight_decay, nesterov=True)
 
     scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=lr_scheduler_step)
     for epoch in range(n_epochs):
-        for batch_id, (inputs, labels) in enumerate(
-                tqdm(train_loader, desc="Epoch {}/{}".format(epoch, n_epochs))):
+        for batch_id, batch in enumerate(tqdm(train_loader, desc="Epoch {}/{}".format(epoch, n_epochs))):
+            inputs, labels = batch["image"], batch["label"]
             if use_cuda:
                 inputs = inputs.cuda()
                 labels = labels.cuda()
@@ -69,4 +70,5 @@ def train(n_epochs=50, lbcnn_depth=2, learning_rate=1e-2, momentum=0.9, weight_d
 
 if __name__ == '__main__':
     # train includes test phase at each epoch
-    train(n_epochs=5)
+    Batches, Label, LabelNames = Data()
+    train(n_epochs=20, trainX = Batches[0], trainY = Label[0], testX = Batches[1], testY = Label[1])

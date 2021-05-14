@@ -34,9 +34,8 @@ class BlockLBP(nn.Module):
 
 
 class Lbcnn(nn.Module):
-    def __init__(self, nInputPlane=3, numChannels=16, numWeights=16, full=50, depth=2, sparsity=0.5):
+    def __init__(self, nInputPlane=3, numChannels=32, numWeights=32, full=1000, depth=2, sparsity=0.5):
         super().__init__()
-
         self.preprocess_block = nn.Sequential(
             nn.Conv2d(nInputPlane, numChannels, kernel_size=3, padding=1),
             nn.BatchNorm2d(numChannels),
@@ -45,20 +44,23 @@ class Lbcnn(nn.Module):
         
         chain = [BlockLBP(numChannels, numWeights, sparsity) for i in range(depth)]
         self.chained_blocks = nn.Sequential(*chain)
-        self.pool = nn.AvgPool2d(kernel_size=8, stride=8)
+        self.pool = nn.AvgPool2d(kernel_size=5, stride=5)
 
         self.dropout = nn.Dropout(0.5)
 		
-        self.fc1 = nn.Linear(16*4*4, full)
-        self.fc2 = nn.Linear(full, 1)
-
+        self.fc1 = nn.Linear(numChannels*6*6, full)
+        self.fc2 = nn.Linear(full, 10)
+        
+		
     def forward(self, x):
+        
         x = self.preprocess_block(x)
         x = self.chained_blocks(x)
         x = self.pool(x)
-        x = x.view(x.shape[0], 16*4*4)
+        x = x.view(x.shape[0], 32*6*6)
         x = self.dropout(x)
         x = self.fc1(x)
         x = F.relu(x)
         x = self.fc2(self.dropout(x))
+        
         return x
