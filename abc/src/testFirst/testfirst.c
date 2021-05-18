@@ -71,6 +71,8 @@ int TestFirst_FirstFunction(Abc_Ntk_t * pNtk){
     Abc_Print(1, "\t - %d primary outputs \n",Abc_NtkPoNum(pAbchange));
     Abc_Print(1, "\t - %d AND gates \n",Abc_NtkNodeNum(pAbchange));
 
+    Io_WriteAiger(pAbchange,"out.aig",1,0,0);
+
     return 1;
 }
 //***********************************************************************/
@@ -79,7 +81,6 @@ int TestFirst_FirstFunction(Abc_Ntk_t * pNtk){
 int TestFirst_FirstFunctionAbc(Abc_Frame_t * pAbc){
     Abc_Ntk_t * pNtk;
     int result;
-
     //get the network that is read into ABC
     pNtk = Abc_FrameReadNtk(pAbc);
 
