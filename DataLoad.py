@@ -3,7 +3,7 @@ import numpy as np
 
 def unpickle(file):
 	import pickle
-	with open(os.path.join(os.path.join(os.getcwd(),'Data'),file), 'rb') as fo:
+	with open(os.path.join(os.path.join(os.getcwd(),'CS220_Project_3/Data'),file), 'rb') as fo:
 		dict = pickle.load(fo, encoding='bytes')
 	return dict
 

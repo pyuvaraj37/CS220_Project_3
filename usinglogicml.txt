@@ -1,0 +1,19 @@
+Have these three foldering/files in the same directory
+--CS220_Project_3
+--logicml
+--abc
+--run.py
+
+Clone logicml from https://github.com/KrishnaswamyLab/logicml
+--Follow the guidelines for setting up the enivornment
+--From CS220_Project_3 copy and replace the data_readers.py file in logicml/code/dataloaders/
+
+Clone abc from https://github.com/berkeley-abc/abc
+--Follow the steps for the static setup, which is shown in the logicml guidlines 
+
+So the program has been changed to alwasy use the CIFAR dataset:
+Run with:
+	python run.py --random_forest --exeriment_name <some_name>
+
+Resulting .verlog file:
+	/logicml/results/<some_name>/final_logic/randomforest_final/randomforest_final.v
