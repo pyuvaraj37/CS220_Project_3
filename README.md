@@ -1,5 +1,37 @@
 # CS220-Graph-Learning
 
+
+## Logic Synthesis Guide
+
+Have these three foldering/files in the same directory
+--CS220_Project_3
+--logicml
+--abc
+--run.py
+
+Clone logicml from https://github.com/KrishnaswamyLab/logicml
+--Follow the guidelines for setting up the enivornment
+--From CS220_Project_3 copy and replace the data_readers.py file in logicml/code/dataloaders/
+
+--In file logicml/code/pipeline/trainer.py: In function test_logic(line 517) comment out "os.system('rm {}'.format(final_aig_script))""(line 596)
+
+Clone abc from https://github.com/berkeley-abc/abc
+--Follow the steps for the static setup, which is shown in the logicml guidlines 
+
+So the program has been changed to alwasy use the CIFAR dataset:
+
+Run with while training:
+	python run.py --random_forest --no_sim --binary_weights --optimizer adam --snapshotting --exeriment_name <some_name>
+
+Run if you just trying to genereate logic of previously trained
+	python run.py --random_forest --no_sim --binary_weights --optimizer adam --load /logicml/results/models/<some_name>/latest --exeriment_name <some_name>
+
+Resulting .verlog file:
+	 run /logicml/results/<some_name>/final_logic/randomforest_final/randomforest_final_abc.sh with source 
+	 then random_forest_abc.v will be generated
+
+
+
 This repository contains a high-level introduction on the types of prediction problems that two common Graph Neural Network architectures may be applied on, as well as example implementations demonstrating end-to-end training pipelines, serving as a starting point for various prediction applications. In addition, there is a small primer on computing with tensors, which are multidimensional array representations of data that enable optimized operations in common machine learning frameworks.
 
 ## Graph Convolutional Networks (GCN) 
