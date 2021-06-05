@@ -49,7 +49,7 @@ int TestFirst_FirstFunction(Abc_Ntk_t * pNtk){
     Abc_Print(1, "\t - %d AND gates \n",Abc_NtkNodeNum(pNtk));
     
 
-    Fraig_Params_t Params, * pParams = &Params;
+    /*Fraig_Params_t Params, * pParams = &Params;
     memset( pParams, 0, sizeof(Fraig_Params_t) );
     pParams->nPatsRand  = 2048; // the number of words of random simulation info
     pParams->nPatsDyna  = 2048; // the number of words of dynamic simulation info
@@ -69,9 +69,10 @@ int TestFirst_FirstFunction(Abc_Ntk_t * pNtk){
     Abc_Print(1, "FRAIG  with name %s has:\n",Abc_NtkName(pAbchange));
     Abc_Print(1, "\t - %d primary inputs \n",Abc_NtkPiNum(pAbchange));
     Abc_Print(1, "\t - %d primary outputs \n",Abc_NtkPoNum(pAbchange));
-    Abc_Print(1, "\t - %d AND gates \n",Abc_NtkNodeNum(pAbchange));
+    Abc_Print(1, "\t - %d AND gates \n",Abc_NtkNodeNum(pAbchange));*/
 
-    Io_WriteAiger(pAbchange,"out.aig",1,0,0);
+    Io_WriteAiger(pNtk,"out.aig",1,0,0);
+
 
     return 1;
 }

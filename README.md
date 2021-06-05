@@ -32,6 +32,19 @@ Resulting .verlog file:
 
 
 
+With the resulting Verilog file
+Clone https://github.com/pyuvaraj37/CS220_Project_3/tree/main/abc
+Change directory to abc
+For compiling, running ABC with strash and fraig:
+./run.sh path_to_verilog_file
+
+For running with an existing example:
+Change directory to examples
+./runAbc.sh example_name
+
+Resulting file will be named “out.aig”
+
+
 This repository contains a high-level introduction on the types of prediction problems that two common Graph Neural Network architectures may be applied on, as well as example implementations demonstrating end-to-end training pipelines, serving as a starting point for various prediction applications. In addition, there is a small primer on computing with tensors, which are multidimensional array representations of data that enable optimized operations in common machine learning frameworks.
 
 ## Graph Convolutional Networks (GCN) 

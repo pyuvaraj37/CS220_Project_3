@@ -20,6 +20,7 @@
 
 #include "base/main/main.h"
 #include "testfirst.h"
+#include "proof/fraig/fraig.h"
 
 
 ABC_NAMESPACE_IMPL_START
@@ -37,6 +38,9 @@ static int TestFirst_commandTestFirst(Abc_Frame_t * pAbc, int argc, char ** argv
 int TestFirst_commandTestFirst(Abc_Frame_t * pAbc, int argc, char ** argv){
     int fVerbose;
     int c, result;
+    Abc_Ntk_t * pNtk;
+    //get the network that is read into ABC
+    pNtk = Abc_FrameReadNtk(pAbc);
 
     //set defaults
     fVerbose =0;
@@ -52,6 +56,7 @@ int TestFirst_commandTestFirst(Abc_Frame_t * pAbc, int argc, char ** argv){
 
     //call the main fucntion
     result = TestFirst_FirstFunctionAbc(pAbc);
+
 
     //print verbose information if the verbose mode is on
     if (fVerbose){
