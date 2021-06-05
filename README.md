@@ -51,6 +51,13 @@ Change directory to examples
 Resulting file will be named “out.aig”
 
 
+With the result ".aig" file, first convert it to a ".gml" file, which can be convert to a networkx object. 
+
+Then store this ".gml" file with name "sample.gml" in "gnn/data" directory. 
+
+Run ./gnn/train.py
+
+
 This repository contains a high-level introduction on the types of prediction problems that two common Graph Neural Network architectures may be applied on, as well as example implementations demonstrating end-to-end training pipelines, serving as a starting point for various prediction applications. In addition, there is a small primer on computing with tensors, which are multidimensional array representations of data that enable optimized operations in common machine learning frameworks.
 
 ## Graph Convolutional Networks (GCN) 
