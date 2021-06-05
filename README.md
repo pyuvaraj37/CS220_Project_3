@@ -33,14 +33,14 @@ Resulting .verlog file:
 
 
 With the resulting Verilog file
-Clone https://github.com/pyuvaraj37/CS220_Project_3/tree/main/abc
-Change directory to abc
-For compiling, running ABC with strash and fraig:
-./run.sh path_to_verilog_file
+-- Clone https://github.com/pyuvaraj37/CS220_Project_3/tree/main/abc
+--Change directory to abc
+--For compiling, running ABC with strash and fraig:
+--./run.sh path_to_verilog_file
 
-For running with an existing example:
-Change directory to examples
-./runAbc.sh example_name
+--For running with an existing example:
+--Change directory to examples
+--./runAbc.sh example_name
 
 Resulting file will be named “out.aig”
 
